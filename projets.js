@@ -427,60 +427,80 @@ Cette expérience a été extrêmement enrichissante, tant sur le plan technique
 
 
 
-
   function createPortfolioItem(doc, index) {
-    const container = document.createElement('div');
-    container.classList.add('portfolio-item');
+   const container = document.createElement('div');
+   container.classList.add('portfolio-item');
 
-    const textContainer = document.createElement('div');
-    textContainer.classList.add('text-container');
-    textContainer.innerHTML = doc.text.slice(0, 600) + 
-        (doc.text.length > 600 ? '<span class="show-more">... En savoir plus</span>' : '');
-    
-    const fullText = document.createElement('div');
-    fullText.classList.add('full-text');
-    fullText.style.display = 'none';
-    fullText.innerHTML = doc.text;
+   // Créer le conteneur de texte tronqué
+   const textContainer = document.createElement('div');
+   textContainer.classList.add('text-container');
+   const truncatedText = doc.text.slice(0, 600);
+   textContainer.innerHTML = truncatedText;
 
-    // Créer les liens PDF
-    const pdfContainer = document.createElement('div');
-    pdfContainer.classList.add('pdf-container');
-    
-    const pdfLink = document.createElement('a');
-    pdfLink.href = `pdf/${doc.pdf}`;
-    pdfLink.textContent = 'Télécharger le PDF';
-    pdfLink.classList.add('pdf-link');
-    pdfLink.target = '_blank';
-    pdfContainer.appendChild(pdfLink);
+   // Ajouter un lien "En savoir plus" si le texte dépasse 600 caractères
+   if (doc.text.length > 600) {
+       const showMoreLink = document.createElement('span');
+       showMoreLink.classList.add('show-more');
+       showMoreLink.textContent = '... En savoir plus';
+       textContainer.appendChild(showMoreLink);
+   }
 
-    // Ajouter un lien PDF supplémentaire pour l'objet 7
-    if (index === 7) {
-        const pdfLink2 = document.createElement('a');
-        pdfLink2.href = `pdf/${doc.pdf2}`;
-        pdfLink2.textContent = 'Télécharger le PDF 2';
-        pdfLink2.classList.add('pdf-link');
-        pdfLink2.target = '_blank';
-        pdfContainer.appendChild(pdfLink2);
-    }
+   // Créer le conteneur de texte complet, caché par défaut
+   const fullText = document.createElement('div');
+   fullText.classList.add('full-text');
+   fullText.style.display = 'none';
+   fullText.innerHTML = doc.text.slice(600);
 
-    container.appendChild(textContainer);
-    container.appendChild(fullText);
-    container.appendChild(pdfContainer);
+   // Créer les liens PDF
+   const pdfContainer = document.createElement('div');
+   pdfContainer.classList.add('pdf-container');
+   
+   const pdfLink = document.createElement('a');
+   pdfLink.href = `pdf/${doc.pdf}`;
+   pdfLink.textContent = 'Télécharger le PDF';
+   pdfLink.classList.add('pdf-link');
+   pdfLink.target = '_blank';
+   pdfContainer.appendChild(pdfLink);
 
-    // Ajouter un événement pour afficher/masquer le texte complet
-    container.querySelector('.show-more')?.addEventListener('click', () => {
-        fullText.style.display = fullText.style.display === 'none' ? 'block' : 'none';
-        container.querySelector('.show-more').textContent = fullText.style.display === 'none' ? '... En savoir plus' : 'Réduire';
-    });
+   // Ajouter un lien PDF supplémentaire pour l'objet 7
+   if (index === 7) {
+       const pdfLink2 = document.createElement('a');
+       pdfLink2.href = `pdf/${doc.pdf2}`;
+       pdfLink2.textContent = 'Télécharger le PDF 2';
+       pdfLink2.classList.add('pdf-link');
+       pdfLink2.target = '_blank';
+       pdfContainer.appendChild(pdfLink2);
+   }
 
-    return container;
+   container.appendChild(textContainer);
+   container.appendChild(fullText);
+   container.appendChild(pdfContainer);
+
+   // Ajouter un événement pour afficher/masquer le texte complet
+   const showMoreElement = textContainer.querySelector('.show-more');
+   if (showMoreElement) {
+       showMoreElement.addEventListener('click', () => {
+           const isTextVisible = fullText.style.display === 'block';
+           if (isTextVisible) {
+               // Réduire le texte
+               fullText.style.display = 'none';
+               showMoreElement.textContent = '... En savoir plus';
+           } else {
+               // Afficher le texte complet
+               fullText.style.display = 'block';
+               showMoreElement.textContent = 'Réduire';
+           }
+       });
+   }
+
+   return container;
 }
 
 // Ajouter les éléments du portfolio au DOM
 document.addEventListener('DOMContentLoaded', () => {
-    const portfolioContainer = document.getElementById('portfolio-container');
-    documents.forEach((doc, index) => {
-        const portfolioItem = createPortfolioItem(doc, index);
-        portfolioContainer.appendChild(portfolioItem);
-    });
+   const portfolioContainer = document.getElementById('portfolio-container');
+   documents.forEach((doc, index) => {
+       const portfolioItem = createPortfolioItem(doc, index);
+       portfolioContainer.appendChild(portfolioItem);
+   });
 });
