@@ -115,3 +115,9 @@ footer {
     margin-top: 20px;
     font-size: 14px;
 }
+
+/* Texte justifié dans la section À propos */
+#about p {
+    text-align: justify;
+    hyphens: auto;
+}
