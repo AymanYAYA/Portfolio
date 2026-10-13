@@ -6,6 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // "cats" sert aux filtres (python, r, sql, finance). "repo" est facultatif.
     const projects = [
         {
+            title: "Candidature Auto : prise de contact avec des recruteurs",
+            tags: ["Python", "Automatisation", "Tkinter"],
+            cats: ["python"],
+            hook: "Un outil personnel qui prépare et envoie un premier message à un recruteur en quelques secondes.",
+            problem: "Pendant ma recherche d'alternance, contacter des recruteurs prenait du temps : retrouver la bonne adresse, adapter le message, joindre le CV.",
+            method: "Une petite interface Python : on saisit le prénom, le nom et l'entreprise. L'adresse est déduite du format utilisé par l'entreprise (100 entreprises référencées), le message est rempli à partir d'un modèle et le CV est joint. Chaque envoi est relu et confirmé à la main. Identifiants stockés hors du code.",
+            result: "Un premier contact court qui ouvre la conversation ; la suite se fait au cas par cas avec les personnes intéressées par le profil.",
+            link: "https://github.com/AymanYAYA/candidature-auto",
+            linkLabel: "Voir le code sur GitHub"
+        },
+        {
             title: "Tarification en assurance automobile",
             tags: ["R", "Actuariat", "Modèles linéaires généralisés"],
             cats: ["r", "finance"],
@@ -137,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <dt>Résultat</dt><dd>${project.result}</dd>
                 </dl>
                 <div class="project-actions">
-                    <a href="${encodeURI(project.link)}" target="_blank" rel="noopener" class="project-button">${project.linkLabel || "Lire le rapport complet (PDF)"}</a>
+                    <a href="${project.link.startsWith("http") ? project.link : encodeURI(project.link)}" target="_blank" rel="noopener" class="project-button">${project.linkLabel || "Lire le rapport complet (PDF)"}</a>
                     ${repo}
                     ${team}
                 </div>
