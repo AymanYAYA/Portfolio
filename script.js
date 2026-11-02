@@ -6,9 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // "cats" sert aux filtres (python, r, sql, finance). "repo" est facultatif.
     const projects = [
         {
+            title: "Hfad : une application de cartes de révision, simple comme Anki devrait l'être",
+            tags: ["JavaScript", "Application web (PWA)", "Firebase", "Répétition espacée"],
+            cats: ["perso"],
+            hook: "Une appli installable sur téléphone et ordinateur, avec le même moteur de révision que le dernier Anki, synchronisée entre appareils.",
+            problem: "Anki est la référence pour mémoriser durablement, mais son interface austère décourage beaucoup de monde avant que la méthode ne fasse effet. Je voulais le même moteur avec une expérience bien plus simple, et la possibilité de taper sa réponse pour qu'elle soit vérifiée.",
+            method: "Une application web sans framework : création de paquets et de cartes (une par une ou en collant une liste), deux modes de révision (retourner la carte ou taper la réponse, avec une faute de frappe tolérée), algorithme de planification FSRS-5 qui reprogramme chaque carte quand la probabilité de s'en souvenir descend à 90 %, limites quotidiennes, statistiques. Connexion Google et synchronisation carte par carte via Firebase ; chaque utilisateur n'accède qu'à ses propres données.",
+            result: "Une appli gratuite, installable sans store, qui fonctionne hors ligne. Elle inclut un paquet de départ de 364 cartes de verbes anglais et des paquets prêts à ajouter en un clic. Construite d'abord pour mon propre apprentissage de l'anglais, utilisable pour n'importe quel sujet.",
+            link: "https://aymanyaya.github.io/hfad/",
+            linkLabel: "Essayer l'application",
+            repo: "https://github.com/AymanYAYA/hfad"
+        },
+        {
             title: "Candidature Auto : prise de contact avec des recruteurs",
             tags: ["Python", "Automatisation", "Tkinter"],
-            cats: ["python"],
+            cats: ["python", "perso"],
             hook: "Un outil personnel qui prépare et envoie un premier message à un recruteur en quelques secondes.",
             problem: "Pendant ma recherche d'alternance, contacter des recruteurs prenait du temps : retrouver la bonne adresse, adapter le message, joindre le CV.",
             method: "Une petite interface Python : on saisit le prénom, le nom et l'entreprise. L'adresse est déduite du format utilisé par l'entreprise (100 entreprises référencées), le message est rempli à partir d'un modèle et le CV est joint. Chaque envoi est relu et confirmé à la main. Identifiants stockés hors du code.",
@@ -115,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const filters = [
         { id: "all", label: "Tous" },
+        { id: "perso", label: "Projets perso" },
         { id: "python", label: "Python" },
         { id: "r", label: "R" },
         { id: "sql", label: "SQL" },
